@@ -1,17 +1,36 @@
-This is my personal Java utility collection that I find useful. The documentation is provided via JavaDoc.
+# NasenGolem Java Utility Collection
 
-If you want to use it yourself and are using Maven, I highly recommend following these steps:
-1. Clone this repository.
-2. Run `mvn test` to test if everything works.
-3. Run `mvn clean install` to compile the code. Read the console output to identify the target.
-4. On Windows: Move the compiled file(s) to `C:\Users\YourUser\.m2\repository\org\nasengolem\util\VersionID` if they aren't there already.
+## Introduction
+This collection of Java utilities provides a range of tools designed to simplify and enhance Java development. Featuring custom DataStructures and utility methods.
 
-After following these steps, you should be able to add my javaUtils to your project by adding the following to your dependencies:
+## Features
+- CappedResizableList: ArrayList like data structure that allows real resizing in constant time. Usefull if you often want to discard the last n elements of your list.  
 
-```xml
-<dependency>
-  <groupId>org.nasengolem</groupId>
-  <artifactId>util</artifactId>
-  <version>latest_version_id_here</version>
-</dependency>
-```
+Please take a look at my JavaDoc for detailed Information.
+
+## Installation
+1. **Clone the repository:**
+   ```
+   git clone [repository URL]
+   ```
+2. **Run the tests:**
+   ```
+   mvn test
+   ```
+3. **Compile the code:**
+   ```
+   mvn clean install
+   ```
+   Move the compiled files to your Maven repository:
+   ```
+   mv [compiled files] to C:\Users\YourUser\.m2\repository\org\nasengolem\util\[VersionID]
+   ```
+4. **Add to your project:**
+   Add the following dependency to your project's `pom.xml`:
+   ```xml
+   <dependency>
+     <groupId>org.nasengolem</groupId>
+     <artifactId>util</artifactId>
+     <version>[latest_version_id_here]</version>
+   </dependency>
+   ```
