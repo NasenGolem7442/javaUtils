@@ -4,7 +4,7 @@
 This collection of Java utilities provides a range of tools designed to simplify and enhance Java development. Featuring custom DataStructures and utility methods.
 
 ## Features
-- CappedResizableList: ArrayList like data structure that allows real resizing in constant time. Usefull if you often want to discard the last n elements of your list.  
+- CappedResizableList: ArrayList like data structure with capped size that allows resizing the List in constant time. Usefull if you often want to discard the last n elements of your list.  
 
 Please take a look at my JavaDoc for detailed Information.
 
