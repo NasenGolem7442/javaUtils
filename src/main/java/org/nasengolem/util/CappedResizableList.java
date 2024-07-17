@@ -7,11 +7,11 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 /**
- * Array like implementation of the {@code List} interface. Implements
- * all optional list operations and permits all elements, including {@code null}.
- * The main feature of this list is, that it can be resized to a smaller size.
- * After resizing, the Array behaves as if it was of the new size and all elements
- * after the new size are removed. Additionally, the list is capped, meaning that
+ * Random-Access {@code List} that has maximum size and allows resizing.
+ * Implements all optional list operations and permits all elements, including
+ * {@code null}. The main feature of this list is, that it can be resized to a smaller
+ * size. After resizing, the Array behaves as if it was of the new size and all
+ * elements after the new size are removed. Additionally, the list is capped, meaning that
  * it can never store more elements than its fixed capacity.
  *
  * <p>The {@code resize}, {@code add}, {@code addLast}, {@code size}, {@code isEmpty},
