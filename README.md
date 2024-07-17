@@ -11,7 +11,7 @@ Please take a look at my JavaDoc for detailed Information.
 ## Installation
 You can either download the compiled source code or you can compile it yourself.
 
-To compile it yourself, go to https://github.com/NasenGolem7442/javaUtils/releases and download the latest util-v#.#.#.zip file. Unpack it and move the files to C:\Users\YourUser\.m2\repository\org\nasengolem\util\[VersionID]
+To compile it yourself, go to [releases](https://github.com/NasenGolem7442/javaUtils/releases) and download the latest util-v#.#.#.zip file. Unpack it and move the files to C:\Users\YourUser\.m2\repository\org\nasengolem\util\[VersionID]
 
 If you want to compile it yourself, follow these steps:
 1. **Clone the repository:**
