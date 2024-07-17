@@ -11,7 +11,7 @@ Please take a look at my JavaDoc for detailed Information.
 ## Installation
 You can either download the compiled source code or you can compile it yourself.
 
-To compile it yourself, go to [releases](https://github.com/NasenGolem7442/javaUtils/releases) and download the latest util-v#.#.#.zip file. Unpack it and move the #.#.# folder to C:\Users\YourUser\.m2\repository\org\nasengolem\util\
+To compile it yourself, go to [releases](https://github.com/NasenGolem7442/javaUtils/releases) and download the latest `util-v#.#.#.zip`. Unpack it and move the `#.#.#` folder to `C:\Users\YourUser\.m2\repository\org\nasengolem\util\`
 
 If you want to compile it yourself, follow these steps on Windows*:
 1. **Open PowerShell** 
@@ -39,7 +39,7 @@ If you want to compile it yourself, follow these steps on Windows*:
    Get-ChildItem -Directory
    ```
    Now you should see a list of all avaiable versions.
-* if you use Linux then you know what you're doing. If you use macOS go f*** yourself.
+* if you use Linux then you should know how to do that. If you use macOS, go f*** yourself.
 ## Usage
 Add the following dependency to your project's `pom.xml`:
 ```xml
@@ -49,4 +49,4 @@ Add the following dependency to your project's `pom.xml`:
   <version>[latest_version_id_here]</version>
 </dependency>
 ```
-Now you can use my Java Utilities. Read the JavaDocs for detailed explanation of the features. 
+Now you can use my Java Utilities in your project.
