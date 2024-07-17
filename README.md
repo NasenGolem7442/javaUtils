@@ -13,27 +13,33 @@ You can either download the compiled source code or you can compile it yourself.
 
 To compile it yourself, go to [releases](https://github.com/NasenGolem7442/javaUtils/releases) and download the latest util-v#.#.#.zip file. Unpack it and move the files to C:\Users\YourUser\.m2\repository\org\nasengolem\util\\[VersionID]
 
-If you want to compile it yourself, follow these steps:
-1. **Select the target location for the source code**
+If you want to compile it yourself, follow these steps on Windows*:
+1. **Open PowerShell** 
+2. **Select the target location for the source code**
    ```
    cd [path]
    ```
-2. **Clone the repository:**
+3. **Clone the repository:**
    ```
    git clone https://github.com/NasenGolem7442/javaUtils.git
    ```
-3. **Run the tests:**
+4. **Select the new folder:**
    ```
-   mvn test
+   cd javaUtils
    ```
-4. **Compile the code:**
+5. **Compile the code:**
    ```
    mvn clean install
    ```
 5. **Check if the compiled files are at the correct location**
    ```
-   cd C:\Users\PaulS\.m2\repository\org\nasengolem\util
+   cd C:\Users\\[yourUsername]\.m2\repository\org\nasengolem\util
    ```
+   ```
+   Get-ChildItem -Directory
+   ```
+   Now you should see a list of all avaiable versions.
+* if you use Linux then you know what you're doing. If you use macOS go f*** yourself.
 ## Usage
 Add the following dependency to your project's `pom.xml`:
 ```xml
