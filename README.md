@@ -16,7 +16,7 @@ To compile it yourself, go to [releases](https://github.com/NasenGolem7442/javaU
 If you want to compile it yourself, follow these steps:
 1. **Clone the repository:**
    ```
-   git clone [https://github.com/NasenGolem7442/javaUtils.git](https://github.com/NasenGolem7442/javaUtils.git)
+   git clone https://github.com/NasenGolem7442/javaUtils.git
    ```
 2. **Run the tests:**
    ```
