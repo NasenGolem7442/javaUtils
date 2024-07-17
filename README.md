@@ -16,7 +16,7 @@ To compile it yourself, go to [releases](https://github.com/NasenGolem7442/javaU
 If you want to compile it yourself, follow these steps:
 1. **Clone the repository:**
    ```
-   git clone [repository URL]
+   git clone [https://github.com/NasenGolem7442/javaUtils.git](https://github.com/NasenGolem7442/javaUtils.git)
    ```
 2. **Run the tests:**
    ```
@@ -40,4 +40,4 @@ Add the following dependency to your project's `pom.xml`:
   <version>[latest_version_id_here]</version>
 </dependency>
 ```
-Now you can use my Java Utilities. Read the JavaDocs for detailed explanation of the functionality. 
+Now you can use my Java Utilities. Read the JavaDocs for detailed explanation of the features. 
