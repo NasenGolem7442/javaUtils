@@ -1,4 +1,4 @@
-# NasenGolem Java Utility Collection
+# NasenGolem7442s Java Utility Collection
 
 ## Introduction
 This collection of Java utilities provides a range of tools designed to simplify and enhance Java development. Featuring custom DataStructures and utility methods.
