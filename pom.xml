@@ -40,6 +40,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.7.0</version>
+                <configuration>
+                    <locale>en_US</locale>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
