@@ -14,23 +14,26 @@ You can either download the compiled source code or you can compile it yourself.
 To compile it yourself, go to [releases](https://github.com/NasenGolem7442/javaUtils/releases) and download the latest util-v#.#.#.zip file. Unpack it and move the files to C:\Users\YourUser\.m2\repository\org\nasengolem\util\[VersionID]
 
 If you want to compile it yourself, follow these steps:
-1. **Clone the repository:**
+1. **Select the target location for the source code**
+   ```
+   cd [path]
+   ```
+2. **Clone the repository:**
    ```
    git clone https://github.com/NasenGolem7442/javaUtils.git
    ```
-2. **Run the tests:**
+3. **Run the tests:**
    ```
    mvn test
    ```
-3. **Compile the code:**
+4. **Compile the code:**
    ```
    mvn clean install
    ```
-   Move the compiled files to the correct location, if they are not there already:
+5. **Check if the compiled files are at the correct location**
    ```
-   mv [compiled files] to C:\Users\YourUser\.m2\repository\org\nasengolem\util\[VersionID]
+   cd C:\Users\PaulS\.m2\repository\org\nasengolem\util
    ```
-
 ## Usage
 Add the following dependency to your project's `pom.xml`:
 ```xml
