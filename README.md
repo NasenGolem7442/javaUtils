@@ -9,6 +9,11 @@ This collection of Java utilities provides a range of tools designed to simplify
 Please take a look at my JavaDoc for detailed Information.
 
 ## Installation
+You can either download the compiled source code or you can compile it yourself.
+
+To compile it yourself, go to https://github.com/NasenGolem7442/javaUtils/releases and download the latest util-v#.#.#.zip file. Unpack it and move the files to C:\Users\YourUser\.m2\repository\org\nasengolem\util\[VersionID]
+
+If you want to compile it yourself, follow these steps:
 1. **Clone the repository:**
    ```
    git clone [repository URL]
@@ -21,16 +26,18 @@ Please take a look at my JavaDoc for detailed Information.
    ```
    mvn clean install
    ```
-   Move the compiled files to your Maven repository:
+   Move the compiled files to the correct location, if they are not there already:
    ```
    mv [compiled files] to C:\Users\YourUser\.m2\repository\org\nasengolem\util\[VersionID]
    ```
-4. **Add to your project:**
-   Add the following dependency to your project's `pom.xml`:
-   ```xml
-   <dependency>
-     <groupId>org.nasengolem</groupId>
-     <artifactId>util</artifactId>
-     <version>[latest_version_id_here]</version>
-   </dependency>
-   ```
+
+## Usage
+Add the following dependency to your project's `pom.xml`:
+```xml
+<dependency>
+  <groupId>org.nasengolem</groupId>
+  <artifactId>util</artifactId>
+  <version>[latest_version_id_here]</version>
+</dependency>
+```
+Now you can use my Java Utilities. Read the JavaDocs for detailed explanation of the functionality. 
