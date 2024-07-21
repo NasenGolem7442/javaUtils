@@ -8,7 +8,7 @@ This collection of Java utilities provides a range of tools designed to simplify
 
 Please take a look at [my JavaDoc](https://nasengolem7442.github.io/javaUtils/) for detailed Information.
 
-## Windows Installation
+## Installation
 You can either download the compiled source code or you can compile it yourself.
 
 To compile it yourself, go to [releases](https://github.com/NasenGolem7442/javaUtils/releases) and download the latest `util-v#.#.#.zip`. Unpack it and move the `#.#.#` folder to `C:\Users\YourUser\.m2\repository\org\nasengolem\util\`
@@ -40,7 +40,7 @@ If you want to compile it yourself, follow these steps on Windows*:
    ```
    Now you should see a list of all avaiable versions.
 
-if you use Linux, you should know how to do that stuff. If you use macOS, go f*** yourself.
+\* If you use Linux, you should know how to do that stuff. If you use macOS, go f*** yourself.
 
 ## Usage
 Add the following dependency to your project's `pom.xml`:
