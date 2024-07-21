@@ -33,7 +33,7 @@ If you want to compile it yourself, follow these steps on Windows*:
    ```
 5. **Check if the compiled files are at the correct location**
    ```
-   cd C:\Users\\[yourUsername]\.m2\repository\org\nasengolem\util
+   cd ~\.m2\repository\org\nasengolem\util
    ```
    ```
    Get-ChildItem -Directory
