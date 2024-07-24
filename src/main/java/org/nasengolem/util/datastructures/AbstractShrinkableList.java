@@ -23,7 +23,7 @@ public abstract class AbstractShrinkableList<E> extends AbstractList<E>
         implements List<E>, Shrinkable {
     private static final String NOT_ENOUGH_ELEMENTS_MESSAGE = "Can't remove %d elements from a list of size %d.";
 
-    protected AbstractShrinkableList() {
+    private AbstractShrinkableList() {
     }
 
     /**

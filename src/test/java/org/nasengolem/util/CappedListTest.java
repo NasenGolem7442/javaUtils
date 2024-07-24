@@ -3,19 +3,22 @@ package org.nasengolem.util;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.nasengolem.util.datastructures.CappedArrayList;
+import org.nasengolem.util.datastructures.CappedList;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
-public class CappedArrayListTest {
+public class CappedListTest {
 
-    private CappedArrayList<Integer> cappedResizableList;
+    private CappedList<Integer> cappedResizableList;
 
     @BeforeEach
     public void setUp() {
-        cappedResizableList = new CappedArrayList<>(3);
+        cappedResizableList = new CappedList<>(3);
     }
 
     @Test
@@ -33,7 +36,9 @@ public class CappedArrayListTest {
     public void testAddElementExceedsCapacity() {
         cappedResizableList.add(1);
         cappedResizableList.add(2);
+        Assertions.assertFalse(cappedResizableList.isFull());
         cappedResizableList.add(3);
+        Assertions.assertTrue(cappedResizableList.isFull());
         Exception exception = Assertions.assertThrows(IllegalStateException.class, () -> cappedResizableList.add(4),
                 "Expected an IllegalStateException to be thrown when adding an element to a full list.");
         Assertions.assertTrue(exception.getMessage().contains("full"), "Exception message should indicate that the list is full.");
@@ -70,7 +75,7 @@ public class CappedArrayListTest {
 
     @Test
     public void invalidCapacity() {
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> new CappedArrayList<>(-1),
+        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> new CappedList<>(-1),
                 "Expected an IllegalArgumentException to be thrown when creating a list with negative capacity.");
         Assertions.assertTrue(exception.getMessage().contains("capacity"), "Exception message should indicate that the capacity is invalid.");
     }
@@ -139,7 +144,7 @@ public class CappedArrayListTest {
         Assertions.assertEquals(arrList, cappedResizableList, "Lists of the same elements should be equal.");
         cappedResizableList.shrink(1);
         Assertions.assertNotEquals(arrList, cappedResizableList, "After the resize, the cappedLists former elements should not be used for comparison.");
-        Assertions.assertEquals(cappedResizableList, arrList.subList(0,1), "The sublist should be equal to the original list.");
+        Assertions.assertEquals(cappedResizableList, arrList.subList(0, 1), "The sublist should be equal to the original list.");
         cappedResizableList.clear();
         Assertions.assertNotEquals(arrList, cappedResizableList, "An empty list should not be equal to a non-empty list.");
         Assertions.assertThrows(NoSuchElementException.class, () -> cappedResizableList.getFirst(),
@@ -169,5 +174,61 @@ public class CappedArrayListTest {
         Assertions.assertDoesNotThrow(() -> cappedResizableList.removeLast());
         Assertions.assertDoesNotThrow(() -> cappedResizableList.removeLast());
         Assertions.assertThrows(NoSuchElementException.class, () -> cappedResizableList.removeLast(), "Expected a NoSuchElementException to be thrown when removing the last element from an empty list.");
+        cappedResizableList.add(0, 5);
+        Assertions.assertThrows(IllegalStateException.class, () -> cappedResizableList.removeLast(2));
+        Assertions.assertDoesNotThrow(() -> cappedResizableList.removeLast(0));
+    }
+
+    @Test
+    public void testSublist() {
+        cappedResizableList.addAll(List.of(1, 2, 3));
+        List<Integer> sublist = cappedResizableList.subList(0, 2);
+        Assertions.assertEquals(List.of(1, 2), sublist);
+        sublist.clear();
+        Assertions.assertEquals(1, cappedResizableList.size());
+        Assertions.assertEquals(3, cappedResizableList.getFirst());
+    }
+
+    @Test
+    public void testCopy() {
+        cappedResizableList.add(1);
+        cappedResizableList.add(3);
+        cappedResizableList.add(5);
+        List<Integer> copy = new CappedList<>(cappedResizableList);
+        Assertions.assertEquals(copy, cappedResizableList);
+        cappedResizableList.set(1, 2);
+        Assertions.assertNotEquals(copy, cappedResizableList);
+    }
+
+    @Test
+    public void createFromCollection() {
+        Set<Integer> hashSet = new HashSet<>();
+        hashSet.add(1);
+        hashSet.add(2);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            CappedList<Integer> cl = new CappedList<>(hashSet, 1);
+        });
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            CappedList<Integer> cl = new CappedList<>(null, 10);
+        });
+        CappedList<Integer> cl = new CappedList<>(hashSet, 2);
+        CappedList<Integer> clB = new CappedList<>(hashSet, 10);
+        Assertions.assertTrue(clB.containsAll(hashSet));
+        Assertions.assertEquals(2, clB.size());
+    }
+
+    @Test
+    public void addAllTest() {
+        cappedResizableList.add(42);
+        Set<Integer> hashSet = new HashSet<>(List.of(1, 2, 3));
+        Assertions.assertThrows(NullPointerException.class, () -> cappedResizableList.addAll(null));
+        Assertions.assertThrows(NullPointerException.class, () -> cappedResizableList.addAll(1, null));
+        Assertions.assertFalse(cappedResizableList.addAll(Collections.emptySet()));
+        Assertions.assertFalse(cappedResizableList.addAll(1, Collections.emptySet()));
+        Assertions.assertThrows(IllegalStateException.class, () -> cappedResizableList.addAll(hashSet));
+        Assertions.assertThrows(IllegalStateException.class, () -> cappedResizableList.addAll(1, hashSet));
+        cappedResizableList.addAll(0, List.of(1, 2));
+        Assertions.assertEquals(List.of(1, 2, 42), cappedResizableList);
     }
 }

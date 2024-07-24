@@ -1,43 +1,39 @@
 package org.nasengolem.util.datastructures;
 
+import java.lang.ref.ReferenceQueue;
 import java.util.*;
 
 /**
- * Random-Access {@code List} implementation, that has a custom capacity and allows
- * custom resizing. Implements all optional list operations and permits all elements, including
- * {@code null}. The main feature of this list is, that it can be resized to a smaller
- * size. After resizing, the Array behaves as if it was of the new size and all
- * elements after the new size are removed. Additionally, the list is capped, meaning that
- * it can never store more elements than its fixed capacity.
+ * Random-Access {@code List} implementation with a fixed capacity. This list can be used whenever the maximum size of a
+ * list is known in advance, making dynamic growth unnecessary.
  *
- * <p>The {@code resize}, {@code add}, {@code addLast}, {@code size}, {@code isEmpty},
- * {@code get}, {@code set}, {@code getFirst}, {@code getLast}, {@code removeLast},
- * {@code iterator}, {@code listIterator}, and {@code reversed} operations run in
- * constant time. All the operations run in linear time (roughly speaking).
+ * <p> Although the capacity is fixed, the list behaves as if it was dynamic. This means that methods like
+ * {@code add} are available, but will throw an {@code IllegalStateException} if the list is full. Adding elements to
+ * a full CappedList should therefore usually be avoided.
  *
- * <p>Each {@code CappedResizableList} instance has a <i>fixed capacity</i>. The capacity
- * is the maximum number of elements the list can store. However, the list does not
- * need to store that many elements. The actual amount of elements stored in the list
- * is called the <i>size</i> of the list. The size of the list is always less than or
- * equal to the capacity. Unlike the <i>capacity</i>, the <i>size</i> of the list isn't
- * fixed. It changes when elements are added or removed from the list or when the list
- * is resized.
+ * <p> Some use cases for this list are datastructures that are limited
+ * due to real-world constraints or datastructures that get (partially) cleared on a regular basis.
  *
- * <p>Like the {@code ArrayList}, the {@code CappedResizableList} is <strong>not synchronized</strong>
- * and its iterator is fail-fast. Read the documentation of the {@code ArrayList} for more
- * information about these topics.
- *
- * @param <E> the type of the elements in this list
  * @author Paul Steinbach
+ * @param <E> the type of the elements in this list
  * @see Collection
- * @see AbstractList
+ * @see AbstractShrinkableList
  * @see ArrayList
  */
-public class CappedShrinkableList<E> extends AbstractList<E>
-        implements List<E>, Shrinkable, RandomAccess {
-    private static final String ILLEGAL_RESIZE_MESSAGE = "Invalid newSize: %d. newSize must be non-negative and less than or equal to the current size: %d. Resize can only decrease the size.";
-    private static final String ILLEGAL_CAPACITY_MESSAGE = "Illegal capacity: %d";
-    private static final String FULL_LIST_MESSAGE = "Can't add %s to the list, since the list is full.";
+public class CappedList<E> extends AbstractShrinkableList<E>
+        implements List<E>, RandomAccess, Shrinkable { //TODO: Possibly implement serializable
+
+    private static final String NEGATIVE_CAPACITY_MESSAGE = "Illegal capacity of %d. The capacity must be non-negative.";
+    private static final String CAPACITY_TOO_SMALL_MESSAGE = "Illegal capacity of %d for the given collection of size %d."
+            + " The capacity must be at least as large as the collection size.";
+
+    private static final String NEGATIVE_RESIZE_MESSAGE = "Illegal newSize of %d. The newSize must be non-negative.";
+    private static final String SIZE_TOO_LARGE_MESSAGE = "Illegal newSize of %d for an original size of %d."
+            + " The newSize must be at least as small as the original size.";
+
+    private static final String FULL_LIST_MESSAGE = "Can't add the element '%s' to the list, since it is full.";
+    private static final String TOO_MANY_ELEMENTS_MESSAGE = "Can't add all elements from the collection to the list, "
+            + "since the current size of %d plus the collection size of %d exceed the capacity of %d.";
 
     private final E[] elements;
     private final int capacity;
@@ -50,49 +46,76 @@ public class CappedShrinkableList<E> extends AbstractList<E>
      * @throws IllegalArgumentException if the capacity is negative
      */
     @SuppressWarnings("unchecked")
-    public CappedShrinkableList(int capacity) {
+    public CappedList(int capacity) {
         this.capacity = capacity;
         if (capacity < 0) {
-            throw new IllegalArgumentException(String.format(ILLEGAL_CAPACITY_MESSAGE, capacity));
+            throw new IllegalArgumentException(String.format(NEGATIVE_CAPACITY_MESSAGE, capacity));
         }
         elements = (E[]) new Object[capacity];
         size = 0;
     }
 
-    public CappedShrinkableList(CappedShrinkableList<? extends E> cappedShrinkableList) {
-        this.capacity = cappedShrinkableList.capacity;
-        this.elements = Arrays.copyOf(cappedShrinkableList.elements, capacity);
-        this.size = cappedShrinkableList.size;
+    /**
+     * Copy constructor. Constructs a {@code CappedResizableList} with the same capacity and elements as the
+     * given {@code CappedResizableList}.
+     *
+     * @param cappedList the {@code CappedResizableList} to copy
+     * @throws NullPointerException if the cappedList is null
+     */
+    public CappedList(CappedList<? extends E> cappedList) {
+        this.capacity = cappedList.capacity;
+        this.elements = Arrays.copyOf(cappedList.elements, capacity);
+        this.size = cappedList.size;
     }
 
-    public CappedShrinkableList(Collection<? extends E> collection, int capacity) {
+    /**
+     * Constructs a {@code CappedResizableList} with the specified capacity. The list contains the elements
+     * of the specified collection, in the order they are returned by the collection's iterator.
+     *
+     * @param collection the collection whose elements are to be placed into this list
+     * @param capacity the capacity defining the maximum number of elements the list can store
+     * @throws IllegalArgumentException if thecapacity is smaller than the collections size
+     * @throws NullPointerException if the collection is null
+     */
+    public CappedList(Collection<? extends E> collection, int capacity) {
         this(capacity);
         if (capacity < collection.size()) {
-            throw new IllegalArgumentException("The capacity must be greater than or equal to the size of the collection.");
+            throw new IllegalArgumentException(CAPACITY_TOO_SMALL_MESSAGE.formatted(capacity, collection.size()));
         }
         addAll(collection);
     }
 
     /**
-     * Resizes the list to a new smaller size. All elements at indices beyond
-     * the new size won't be visible anymore.
+     * {@inheritDoc}
      *
-     * @param newSize the new size of the list
-     * @throws IllegalArgumentException if the new size is negative or greater than the current size
+     * @throws IllegalArgumentException {@inheritDoc}
      */
-    public void shrink(int newSize) {
-        if (newSize < 0 || newSize > size) {
-            throw new IllegalArgumentException(ILLEGAL_RESIZE_MESSAGE.formatted(newSize, size));
+    @Override
+    public int shrink(int newSize) {
+        if (newSize < 0) {
+            throw new IllegalArgumentException(NEGATIVE_RESIZE_MESSAGE.formatted(newSize));
+        } else if (newSize > size) {
+            throw new IllegalArgumentException(SIZE_TOO_LARGE_MESSAGE.formatted(newSize, size));
         }
-        size = newSize;
+        return size = newSize;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @throws IndexOutOfBoundsException {@inheritDoc}
+     */
     @Override
     public E get(int index) {
         Objects.checkIndex(index, size);
         return elements[index];
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return the number of elements in this list
+     */
     @Override
     public int size() {
         return size;
@@ -106,6 +129,26 @@ public class CappedShrinkableList<E> extends AbstractList<E>
         return oldElement;
     }
 
+    /**
+     * Returns {@code true} if this list is full. This means that no further elements can be added.
+     *
+     * @return {@code true} if this collection if full
+     * This implementation returns {@code size() == capacity}.
+     */
+    public boolean isFull() {
+        return size() == capacity;
+    }
+
+    /**
+     * Inserts the specified element at the specified position in this list, if the list is not full already. The element
+     * currently at that position (if any) and any subsequent elements will then be shifted to the right (adds one to
+     * their indices).
+     *
+     * @param index index at which the specified element is to be inserted
+     * @param element element to be inserted
+     * @throws IndexOutOfBoundsException {@inheritDoc}
+     * @throws IllegalStateException if the list reached its capacity
+     */
     @Override
     public void add(int index, E element) {
         if (size == capacity) {
@@ -119,6 +162,89 @@ public class CappedShrinkableList<E> extends AbstractList<E>
         size++;
     }
 
+    /**
+     * Inserts all elements of the specified collection into this
+     * list, starting at the specified position.  Shifts the element
+     * currently at that position (if any) and any subsequent elements to
+     * the right (increases their indices).  The new elements will appear
+     * in the list in the order that they are returned by the
+     * specified collection's iterator.
+     *
+     * @param index index at which to insert the first element from the
+     *              specified collection
+     * @param c collection containing elements to be added to this list
+     * @return {@code true} if this list changed as a result of the call
+     * @throws IndexOutOfBoundsException {@inheritDoc}
+     * @throws NullPointerException if the specified collection is null
+     * @throws IllegalStateException if the list reached its capacity
+     */
+    @Override
+    public boolean addAll(int index, Collection<? extends E> c) {
+        //TODO: Double check if this is better than the default implementation
+        Objects.requireNonNull(c);
+        Objects.checkIndex(index, size + 1);
+
+        int numNew = c.size();
+
+        if (numNew == 0) {
+            return false;
+        } else if (size + numNew > capacity) {
+            throw new IllegalStateException(TOO_MANY_ELEMENTS_MESSAGE.formatted(size, numNew, capacity));
+        }
+
+        System.arraycopy(elements, index,
+                elements, index + numNew,
+                size - index);
+
+        int i = index;
+        for (E e : c) {
+            elements[i++] = e;
+        }
+
+        size += c.size();
+        return true;
+    }
+
+    /**
+     * Appends all elements of the specified collection to the end of
+     * this list, in the order that they are returned by the
+     * specified collection's Iterator.
+     *
+     * @param c collection containing elements to be added to this list
+     * @return {@code true} if this list changed as a result of the call
+     * @throws NullPointerException if the specified collection is null
+     * @throws IllegalStateException if the list reached its capacity
+     */
+    @Override
+    public boolean addAll(Collection<? extends E> c) {
+        Objects.requireNonNull(c);
+
+        int numNew = c.size();
+
+        if (numNew == 0) {
+            return false;
+        } else if (size + numNew > capacity) {
+            throw new IllegalStateException(TOO_MANY_ELEMENTS_MESSAGE.formatted(size, numNew, capacity));
+        }
+
+        int i = size;
+        for (E e : c) {
+            elements[i++] = e;
+        }
+
+        size += c.size();
+        return true;
+    }
+
+    /**
+     * Removes the element at the specified position in this list.
+     * Shifts any subsequent elements to the left (subtracts one from their
+     * indices).
+     *
+     * @param index the index of the element to be removed
+     * @return the element that was removed from the list
+     * @throws IndexOutOfBoundsException {@inheritDoc}
+     */
     @Override
     public E remove(int index) {
         Objects.checkIndex(index, size);
@@ -128,13 +254,5 @@ public class CappedShrinkableList<E> extends AbstractList<E>
                 size - index - 1);
         size--;
         return removedElement;
-    }
-
-    @Override
-    public E removeLast() {
-        if (size == 0) {
-            throw new NoSuchElementException();
-        }
-        return elements[--size];
     }
 }
