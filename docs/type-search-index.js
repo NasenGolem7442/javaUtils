@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"org.nasengolem.util","l":"CappedResizableList"}];updateSearchResults();
+typeSearchIndex = [{"p":"org.nasengolem.util.datastructures","l":"AbstractShrinkableList"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"org.nasengolem.util.datastructures","l":"CappedList"},{"p":"org.nasengolem.util.datastructures","l":"Shrinkable"},{"p":"org.nasengolem.util.datastructures","l":"ShrinkableArrayList"}];updateSearchResults();
