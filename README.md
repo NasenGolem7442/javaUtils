@@ -4,7 +4,8 @@
 This collection of Java utilities provides a range of tools designed to simplify and enhance Java development. Featuring custom DataStructures and utility methods.
 
 ## Features
-- CappedResizableList: ArrayList like data structure with capped size that allows resizing the List in constant time. Usefull if you often want to discard the last n elements of your list.  
+- CappedList: ArrayList like data structure with capped size that allows resizing the List in constant time. Usefull if you often want to discard the last elements of your list.
+- Class System for units (prototype): Class system to handle physical quantities (e.g. temperatures)
 
 Please take a look at [my JavaDoc](https://nasengolem7442.github.io/javaUtils/) for detailed Information.
 
