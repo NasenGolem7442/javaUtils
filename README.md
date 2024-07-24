@@ -11,7 +11,7 @@ Please take a look at [my JavaDoc](https://nasengolem7442.github.io/javaUtils/) 
 ## Installation
 You can either download the compiled source code or you can compile it yourself.
 
-To compile it yourself, go to [releases](https://github.com/NasenGolem7442/javaUtils/releases) and download the latest `util-v#.#.#.zip`. Unpack it and move the `#.#.#` folder to `C:\Users\YourUser\.m2\repository\org\nasengolem\util\`
+For download, go to [releases](https://github.com/NasenGolem7442/javaUtils/releases) and download the latest `util-v#.#.#.zip`. Unpack it and move the `#.#.#` folder to `C:\Users\YourUser\.m2\repository\org\nasengolem\util\`
 
 If you want to compile it yourself, follow these steps on Windows*:
 1. **Open PowerShell** 
@@ -33,20 +33,22 @@ If you want to compile it yourself, follow these steps on Windows*:
    ```
 5. **Check if the compiled files are at the correct location**
    ```
-   cd C:\Users\\[yourUsername]\.m2\repository\org\nasengolem\util
+   cd ~\.m2\repository\org\nasengolem\util
    ```
    ```
    Get-ChildItem -Directory
    ```
-   Now you should see a list of all avaiable versions.
-* if you use Linux then you should know how to do that. If you use macOS, go f*** yourself.
+   Now you should see a the latest version in your terminal.
+
+\* If you use Linux, you should know how to do that stuff. If you use macOS, go f*** yourself.
+
 ## Usage
 Add the following dependency to your project's `pom.xml`:
 ```xml
 <dependency>
   <groupId>org.nasengolem</groupId>
   <artifactId>util</artifactId>
-  <version>[latest_version_id_here]</version>
+  <version>[latest_version_id]</version>
 </dependency>
 ```
 Now you can use my Java Utilities in your project.
