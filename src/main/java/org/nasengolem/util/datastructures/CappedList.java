@@ -1,6 +1,5 @@
 package org.nasengolem.util.datastructures;
 
-import java.lang.ref.ReferenceQueue;
 import java.util.*;
 
 /**
