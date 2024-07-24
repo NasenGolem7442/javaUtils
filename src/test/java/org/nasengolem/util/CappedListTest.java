@@ -3,18 +3,19 @@ package org.nasengolem.util;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.nasengolem.util.datastructures.CappedArrayList;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class CappedResizableListTest {
+public class CappedArrayListTest {
 
-    private CappedResizableList<Integer> cappedResizableList;
+    private CappedArrayList<Integer> cappedResizableList;
 
     @BeforeEach
     public void setUp() {
-        cappedResizableList = new CappedResizableList<>(3);
+        cappedResizableList = new CappedArrayList<>(3);
     }
 
     @Test
@@ -69,7 +70,7 @@ public class CappedResizableListTest {
 
     @Test
     public void invalidCapacity() {
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> new CappedResizableList<>(-1),
+        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> new CappedArrayList<>(-1),
                 "Expected an IllegalArgumentException to be thrown when creating a list with negative capacity.");
         Assertions.assertTrue(exception.getMessage().contains("capacity"), "Exception message should indicate that the capacity is invalid.");
     }
@@ -105,11 +106,11 @@ public class CappedResizableListTest {
     }
 
     @Test
-    public void testResizeValid() {
+    public void testShrinkValid() {
         cappedResizableList.add(1);
         cappedResizableList.add(2);
         cappedResizableList.add(3);
-        cappedResizableList.resize(1);
+        cappedResizableList.shrink(1);
         Assertions.assertEquals(1, cappedResizableList.size(), "The size should be 1 after resizing the list.");
         Assertions.assertEquals(1, cappedResizableList.get(0));
         Assertions.assertThrows(IndexOutOfBoundsException.class, () -> cappedResizableList.get(1),
@@ -117,16 +118,16 @@ public class CappedResizableListTest {
     }
 
     @Test
-    public void testResizeInvalid() {
+    public void testShrinkInvalid() {
         cappedResizableList.add(1);
         cappedResizableList.add(2);
         cappedResizableList.add(3);
-        Assertions.assertDoesNotThrow(() -> cappedResizableList.resize(3),
+        Assertions.assertDoesNotThrow(() -> cappedResizableList.shrink(3),
                 "Expected no exception to be thrown when resizing the list to the same size.");
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> cappedResizableList.resize(4),
+        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> cappedResizableList.shrink(4),
                 "Expected an IllegalArgumentException to be thrown when resizing the list to a larger size.");
         Assertions.assertTrue(exception.getMessage().contains("size"), "Exception message should indicate that the size is invalid.");
-        Assertions.assertThrows(IllegalArgumentException.class, () -> cappedResizableList.resize(-1),
+        Assertions.assertThrows(IllegalArgumentException.class, () -> cappedResizableList.shrink(-1),
                 "Expected an IndexOutOfBoundsException to be thrown when resizing the list to a negative size.");
     }
 
@@ -136,7 +137,7 @@ public class CappedResizableListTest {
         cappedResizableList.add(2);
         List<Integer> arrList = new ArrayList<>(List.of(1, 2));
         Assertions.assertEquals(arrList, cappedResizableList, "Lists of the same elements should be equal.");
-        cappedResizableList.resize(1);
+        cappedResizableList.shrink(1);
         Assertions.assertNotEquals(arrList, cappedResizableList, "After the resize, the cappedLists former elements should not be used for comparison.");
         Assertions.assertEquals(cappedResizableList, arrList.subList(0,1), "The sublist should be equal to the original list.");
         cappedResizableList.clear();

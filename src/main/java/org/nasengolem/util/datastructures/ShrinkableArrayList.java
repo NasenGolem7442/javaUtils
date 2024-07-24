@@ -1,14 +1,17 @@
-package org.nasengolem.util;
+package org.nasengolem.util.datastructures;
 
 import java.util.AbstractList;
-import java.util.Collection;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.RandomAccess;
 
 /**
- * Random-Access {@code List} that has a maximum size and allows custom resizing.
- * Implements all optional list operations and permits all elements, including
+ * Random-Access {@code List} implementation, that has a custom capacity and allows
+ * custom resizing. Implements all optional list operations and permits all elements, including
  * {@code null}. The main feature of this list is, that it can be resized to a smaller
  * size. After resizing, the Array behaves as if it was of the new size and all
  * elements after the new size are removed. Additionally, the list is capped, meaning that
@@ -32,36 +35,40 @@ import java.util.Objects;
  * information about these topics.
  *
  * @param <E> the type of the elements in this list
- *
  * @author Paul Steinbach
- * @see     Collection
- * @see     AbstractList
- * @see     ArrayList
+ * @see Collection
+ * @see AbstractList
+ * @see ArrayList
  */
-public class CappedResizableList<E> extends AbstractList<E> {
+public class ShrinkableArrayList<E> extends AbstractList<E>
+        implements List<E>, RandomAccess {
     private static final String ILLEGAL_RESIZE_MESSAGE = "Invalid newSize: %d. newSize must be non-negative and less than or equal to the current size: %d. Resize can only decrease the size.";
     private static final String ILLEGAL_CAPACITY_MESSAGE = "Illegal capacity: %d";
-    private static final String FULL_LIST_MESSAGE = "Can't add %s to the list, since the list is full.";
 
-    private final E[] elements;
-    private final int capacity;
+    private static final int DEFAULT_CAPACITY = 10;
+
+    private E[] elements;
     private int size;
-
 
     /**
      * Constructs a new {@code CappedResizableList} with the specified capacity.
      *
-     * @param capacity the capacity defining the maximum number of elements the list can store
      * @throws IllegalArgumentException if the capacity is negative
      */
     @SuppressWarnings("unchecked")
-    public CappedResizableList(int capacity) {
-        this.capacity = capacity;
-        if (capacity < 0) {
-            throw new IllegalArgumentException(String.format(ILLEGAL_CAPACITY_MESSAGE, capacity));
-        }
-        elements = (E[]) new Object[capacity];
+    public ShrinkableArrayList() {
+        elements = (E[]) new Object[DEFAULT_CAPACITY];
         size = 0;
+    }
+
+    public ShrinkableArrayList(ShrinkableArrayList<? extends E> shrinkableArrayList) {
+        this.size = shrinkableArrayList.size;
+        this.elements = Arrays.copyOf(shrinkableArrayList.elements, size);
+    }
+
+    public ShrinkableArrayList(Collection<? extends E> collection) {
+        this();
+        addAll(collection);
     }
 
     /**
@@ -71,7 +78,7 @@ public class CappedResizableList<E> extends AbstractList<E> {
      * @param newSize the new size of the list
      * @throws IllegalArgumentException if the new size is negative or greater than the current size
      */
-    public void resize(int newSize) {
+    public void shrink(int newSize) {
         if (newSize < 0 || newSize > size) {
             throw new IllegalArgumentException(ILLEGAL_RESIZE_MESSAGE.formatted(newSize, size));
         }
@@ -97,12 +104,22 @@ public class CappedResizableList<E> extends AbstractList<E> {
         return oldElement;
     }
 
+    private void grow(int minCapacity) {
+        int oldCapacity = elements.length;
+        if (minCapacity > oldCapacity) {
+            int newCapacity = 0;
+//            ArraySupport.newLength(oldCapacity,
+//                    minCapacity - oldCapacity, /* minimum growth */
+//                    oldCapacity >> 1           /* preferred growth */);
+        }
+    }
+
     @Override
     public void add(int index, E element) {
-        if (size == capacity) {
-            throw new IllegalStateException(FULL_LIST_MESSAGE.formatted(element));
-        }
         Objects.checkIndex(index, size + 1);
+        if (size == elements.length) {
+            grow(1);
+        }
         System.arraycopy(elements, index,
                 elements, index + 1,
                 size - index);
@@ -127,5 +144,15 @@ public class CappedResizableList<E> extends AbstractList<E> {
             throw new NoSuchElementException();
         }
         return elements[--size];
+    }
+
+    @Override
+    public E[] toArray() {
+        return Arrays.copyOf(elements, size);
+    }
+
+    @Override
+    public boolean addAll(int index, Collection<? extends E> c) {
+        return super.addAll(index, c);
     }
 }
