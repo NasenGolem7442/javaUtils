@@ -2,6 +2,7 @@
 
 ## Introduction
 This collection of Java utilities provides a range of tools designed to simplify and enhance Java development. Featuring custom DataStructures and utility methods.
+Not to be confused with `java.utils`
 
 ## Features
 - CappedList: ArrayList like data structure with capped size that allows resizing the List in constant time. Usefull if you often want to discard the last elements of your list.
