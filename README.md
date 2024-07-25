@@ -53,3 +53,9 @@ Add the following dependency to your project's `pom.xml`:
 </dependency>
 ```
 Now you can use my Java Utilities in your project.
+
+## Contribution
+This is my first github repository. My main goal is to improve my programming and documentation skills, while developping some (potentially) usefull utility stuff. I use this repo to save and organize some solutions to problems that I've come across while working on other projects.
+
+Please share your thoughts to my project in the [discussions](https://github.com/NasenGolem7442/javaUtils/discussions) section.
+Additionally, feel free to use the [issues](https://github.com/NasenGolem7442/javaUtils/issues/) section to address faulty code and request new features that extend certain functionality or the overall construct.
