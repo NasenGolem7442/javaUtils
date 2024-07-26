@@ -41,7 +41,6 @@ public class CappedList<E> extends AbstractShrinkableList<E>
         + "since the current size of %d plus the collection size of %d exceed the capacity of %d.";
 
     private final E[] elements;
-    private final int capacity;
     private int size;
 
     /**
@@ -52,7 +51,6 @@ public class CappedList<E> extends AbstractShrinkableList<E>
      */
     @SuppressWarnings("unchecked")
     public CappedList(int capacity) {
-        this.capacity = capacity;
         if (capacity < 0) {
             throw new IllegalArgumentException(String.format(NEGATIVE_CAPACITY_MESSAGE, capacity));
         }
@@ -68,8 +66,7 @@ public class CappedList<E> extends AbstractShrinkableList<E>
      * @throws NullPointerException if the cappedList is null
      */
     public CappedList(CappedList<? extends E> cappedList) {
-        this.capacity = cappedList.capacity;
-        this.elements = Arrays.copyOf(cappedList.elements, capacity);
+        this.elements = Arrays.copyOf(cappedList.elements, capacity());
         this.size = cappedList.size;
     }
 
@@ -137,10 +134,10 @@ public class CappedList<E> extends AbstractShrinkableList<E>
     /**
      * Returns {@code true} if this list is full. This means that no further elements can be added.
      *
-     * @return {@code true} if this collection if full This implementation returns {@code size() == capacity}.
+     * @return {@code true} if this collection if full This implementation returns {@code size() == capacity()}.
      */
     public boolean isFull() {
-        return size() == capacity;
+        return size() == capacity();
     }
 
     /**
@@ -154,7 +151,7 @@ public class CappedList<E> extends AbstractShrinkableList<E>
      */
     @Override
     public void add(int index, E element) {
-        if (size == capacity) {
+        if (size == capacity()) {
             throw new IllegalStateException(FULL_LIST_MESSAGE.formatted(element));
         }
         Objects.checkIndex(index, size + 1);
@@ -190,8 +187,8 @@ public class CappedList<E> extends AbstractShrinkableList<E>
             return false;
         }
 
-        if (size + arr.length > capacity) {
-            throw new IllegalStateException(TOO_MANY_ELEMENTS_MESSAGE.formatted(size, arr.length, capacity));
+        if (size + arr.length > capacity()) {
+            throw new IllegalStateException(TOO_MANY_ELEMENTS_MESSAGE.formatted(size, arr.length, capacity()));
         }
 
         System.arraycopy(elements, index,
@@ -241,5 +238,14 @@ public class CappedList<E> extends AbstractShrinkableList<E>
         );
         size--;
         return removedElement;
+    }
+
+    /**
+     * Gets the capacity of this list. The capacity is the maximum number of elements this list can store.
+     *
+     * @return the capacity of this list
+     */
+    public int capacity() {
+        return elements.length;
     }
 }
