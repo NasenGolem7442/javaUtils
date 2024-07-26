@@ -9,12 +9,12 @@ import java.util.Objects;
 import java.util.RandomAccess;
 
 /**
- * Random-Access {@code List} implementation with a fixed capacity. This list can be used whenever the maximum size of a
+ * Random-Access {@link List} implementation with a fixed capacity. This list can be used whenever the maximum size of a
  * list is known in advance, making dynamic growth unnecessary.
  *
  * <p> Although the capacity is fixed, the list behaves as if it was dynamic. This means that methods like
- * {@code add} are available, but will throw an {@code IllegalStateException} if the list is full. Adding elements to
- * a full CappedList should therefore usually be avoided.
+ * {@link List#add(Object)} are available, but will throw an {@link IllegalStateException} if the list is full.
+ * Adding elements to a full CappedList should therefore usually be avoided.
  *
  * <p> Some use cases for this list are datastructures that are limited
  * due to real-world constraints or datastructures that get (partially) cleared on a regular basis.
@@ -45,7 +45,7 @@ public class CappedList<E> extends AbstractShrinkableList<E>
     private int size;
 
     /**
-     * Constructs a new {@code CappedResizableList} with the specified capacity.
+     * Constructs a new {@link CappedList} with the specified capacity.
      *
      * @param capacity the capacity defining the maximum number of elements the list can store
      * @throws IllegalArgumentException if the capacity is negative
@@ -61,11 +61,11 @@ public class CappedList<E> extends AbstractShrinkableList<E>
     }
 
     /**
-     * Copy constructor. Constructs a {@code CappedResizableList} with the same capacity and elements as the
-     * given {@code CappedResizableList}.
+     * Copy constructor. Constructs a {@link CappedList} with the same capacity and elements as the
+     * given {@link CappedList}.
      *
-     * @param cappedList the {@code CappedResizableList} to copy
-     * @throws NullPointerException if the cappedList is null
+     * @param cappedList the {@link CappedList} to copy
+     * @throws NullPointerException if the cappedList is {@code null}
      */
     public CappedList(CappedList<? extends E> cappedList) {
         this.capacity = cappedList.capacity;
@@ -74,7 +74,7 @@ public class CappedList<E> extends AbstractShrinkableList<E>
     }
 
     /**
-     * Constructs a {@code CappedResizableList} with the specified capacity. The list contains the elements
+     * Constructs a {@link CappedList} with the specified capacity. The list contains the elements
      * of the specified collection, in the order they are returned by the collection's iterator.
      *
      * @param collection the collection whose elements are to be placed into this list
