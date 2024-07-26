@@ -3,8 +3,11 @@
 ## Introduction
 This collection of Java utilities provides a range of tools designed to simplify and enhance Java development. Featuring custom DataStructures and utility methods.
 
+This repository has nothing to do with `java.util`
+
 ## Features
-- CappedResizableList: ArrayList like data structure with capped size that allows resizing the List in constant time. Usefull if you often want to discard the last n elements of your list.  
+- CappedList: ArrayList like data structure with capped size that allows resizing the List in constant time. Usefull if you often want to discard the last elements of your list.
+- Class System for units (prototype): Class system to handle physical quantities (e.g. temperatures)
 
 Please take a look at [my JavaDoc](https://nasengolem7442.github.io/javaUtils/) for detailed Information.
 
@@ -52,3 +55,9 @@ Add the following dependency to your project's `pom.xml`:
 </dependency>
 ```
 Now you can use my Java Utilities in your project.
+
+## Contribution
+This is my first github repository. My main goal is to improve my programming and documentation skills, while developping some (potentially) usefull utility stuff. I use this repo to save and organize some solutions to problems that I've come across while working on other projects.
+
+Please share your thoughts to my project in the [discussions](https://github.com/NasenGolem7442/javaUtils/discussions) section.
+Additionally, feel free to use the [issues](https://github.com/NasenGolem7442/javaUtils/issues/) section to address faulty code and request new features that extend certain functionality or the overall construct.
