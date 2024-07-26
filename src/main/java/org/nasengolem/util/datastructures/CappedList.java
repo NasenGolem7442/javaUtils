@@ -232,12 +232,10 @@ public class CappedList<E> extends AbstractShrinkableList<E>
             throw new IllegalStateException(TOO_MANY_ELEMENTS_MESSAGE.formatted(size, numNew, capacity));
         }
 
-        int i = size;
         for (E e : c) {
-            elements[i++] = e;
+            elements[size++] = e;
         }
 
-        size += c.size();
         return true;
     }
 
