@@ -1,6 +1,12 @@
 package org.nasengolem.util.datastructures;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.RandomAccess;
 
 /**
  * Random-Access {@code List} implementation with a fixed capacity. This list can be used whenever the maximum size of a
@@ -73,7 +79,7 @@ public class CappedList<E> extends AbstractShrinkableList<E>
      *
      * @param collection the collection whose elements are to be placed into this list
      * @param capacity the capacity defining the maximum number of elements the list can store
-     * @throws IllegalArgumentException if thecapacity is smaller than the collections size
+     * @throws IllegalArgumentException if the capacity is smaller than the collections size
      * @throws NullPointerException if the collection is null
      */
     public CappedList(Collection<? extends E> collection, int capacity) {

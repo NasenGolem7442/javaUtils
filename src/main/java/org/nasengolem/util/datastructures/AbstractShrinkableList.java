@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 /**
- * This class extends the {@link AbstractList} skeleton lists that can implement {@link Shrinkable}.
+ * This class extends the {@link AbstractList} skeleton by implementing^ {@link Shrinkable}.
  * This means, that the end of the list can be cut off in constant time. The following idioms utilize the
  * {@link #shrink(int)} method to increase performance when deleting the last elements of the list.
  *
@@ -35,9 +35,10 @@ public abstract class AbstractShrinkableList<E> extends AbstractList<E>
     public abstract int shrink(int newSize);
 
     /**
-     * {@inheritDoc}
+     * Removes and returns the last element of the list.
      *
-     * @throws NoSuchElementException {@inheritDoc}
+     * @return the removed element
+     * @throws NoSuchElementException -
      */
     @Override
     public E removeLast() {
@@ -57,7 +58,7 @@ public abstract class AbstractShrinkableList<E> extends AbstractList<E>
     }
 
     /**
-     * Removes the last n elements from the list.
+     * Removes the specified amount of elements from the end of the list.
      *
      * @param numberOfElements the number of elements to remove
      * @throws IllegalStateException if the list does not contain enough elements

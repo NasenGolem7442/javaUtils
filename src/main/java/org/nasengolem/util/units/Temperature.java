@@ -1,7 +1,7 @@
-package org.nasengolem.units;
+package org.nasengolem.util.units;
 
 public class Temperature extends PhysicalQuantity {
-    private static final PhysicalQuantity.Unit INTERNAL_UNIT = Unit.KELVIN;
+    private static final Unit INTERNAL_UNIT = Unit.KELVIN;
     private static final int DEFAULT_DECIMAL_PLACES = 1;
 
     public Temperature(double value, Temperature.Unit unit) {
@@ -9,7 +9,7 @@ public class Temperature extends PhysicalQuantity {
     }
 
     @Override
-    protected PhysicalQuantity.Unit getInternalUnit() {
+    protected Unit getInternalUnit() {
         return INTERNAL_UNIT;
     }
 

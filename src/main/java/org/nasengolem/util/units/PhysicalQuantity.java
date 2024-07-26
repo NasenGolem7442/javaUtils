@@ -1,4 +1,4 @@
-package org.nasengolem.units;
+package org.nasengolem.util.units;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -11,7 +11,7 @@ public abstract class PhysicalQuantity {
         this.valueInBaseUnit = unit.toBaseUnit(value);
     }
 
-    protected abstract Unit getInternalUnit();
+    protected abstract Temperature.Unit getInternalUnit();
     protected abstract int getDefaultDecimalPlaces();
 
     public double getValue(Unit unit) {

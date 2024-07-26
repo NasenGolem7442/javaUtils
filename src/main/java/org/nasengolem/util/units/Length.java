@@ -1,15 +1,15 @@
-package org.nasengolem.units;
+package org.nasengolem.util.units;
 
 public class Length extends PhysicalQuantity {
-    private static final PhysicalQuantity.Unit INTERNAL_UNIT = Unit.METRE;
+    private static final Unit INTERNAL_UNIT = Unit.METRE;
     private static final int DEFAULT_DECIMAL_PLACES = 2;
 
-    public Length(double value, Length.Unit unit) {
+    public Length(double value, Unit unit) {
         super(value, unit);
     }
 
     @Override
-    protected PhysicalQuantity.Unit getInternalUnit() {
+    protected Temperature.Unit getInternalUnit() {
         return INTERNAL_UNIT;
     }
 
