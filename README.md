@@ -14,36 +14,32 @@ Please take a look at [my JavaDoc](https://nasengolem7442.github.io/javaUtils/) 
 ## Installation
 You can either download the compiled source code or you can compile it yourself.
 
-For download, go to [releases](https://github.com/NasenGolem7442/javaUtils/releases) and download the latest `util-v#.#.#.zip`. Unpack it and move the `#.#.#` folder to `C:\Users\YourUser\.m2\repository\org\nasengolem\util\`
+For download, go to [releases](https://github.com/NasenGolem7442/javaUtils/releases) and download the latest `util-v#.#.#.zip`. Unpack it and move the `#.#.#` folder to `~/.m2/repository/org/nasengolem/util/`
 
-If you want to compile it yourself, follow these steps on Windows*:
-1. **Open PowerShell** 
+If you want to compile it yourself, follow these steps:
+1. **Open Powershell or Bash (Either works)** 
 2. **Select the target location for the source code**
-   ```
+   ```bash
    cd [path]
    ```
 3. **Clone the repository:**
-   ```
+   ```bash
    git clone https://github.com/NasenGolem7442/javaUtils.git
    ```
 4. **Select the new folder:**
-   ```
+   ```bash
    cd javaUtils
    ```
 5. **Compile the code:**
-   ```
+   ```bash
    mvn clean install
    ```
 5. **Check if the compiled files are at the correct location**
+   ```bash
+   cd ~/.m2/repository/org/nasengolem/util
+   ls
    ```
-   cd ~\.m2\repository\org\nasengolem\util
-   ```
-   ```
-   Get-ChildItem -Directory
-   ```
-   Now you should see a the latest version in your terminal.
-
-\* If you use Linux, you should know how to do that stuff. If you use macOS, go f*** yourself.
+   Now you should see the latest version in your terminal.
 
 ## Usage
 Add the following dependency to your project's `pom.xml`:
