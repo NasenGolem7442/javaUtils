@@ -6,14 +6,16 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 /**
- * This class extends the {@link AbstractList} skeleton by implementing^ {@link Shrinkable}.
- * This means, that the end of the list can be cut off in constant time. The following idioms utilize the
- * {@link #shrink(int)} method to increase performance when deleting the last elements of the list.
+ * This class extends the {@link AbstractList} skeleton by implementing {@link Shrinkable}.
+ * This means that the end of the list can be cut off in constant time. The following idioms utilize the
+ * {@link #removeLast(int)} method to increase performance when deleting the last elements of the list.
  *
  * <pre>
+ *     {@code
  *      list.removeLast(numberOfElements);
  *      list.subList(from, size()).clear();
  *      list.clear();
+ *     }
  * </pre>
  *
  * @author Paul Steinbach
