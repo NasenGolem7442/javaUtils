@@ -9,7 +9,7 @@ public class Length extends PhysicalQuantity {
     }
 
     @Override
-    protected Temperature.Unit getInternalUnit() {
+    protected Unit getInternalUnit() {
         return INTERNAL_UNIT;
     }
 

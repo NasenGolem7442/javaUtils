@@ -11,7 +11,7 @@ public abstract class PhysicalQuantity {
         this.valueInBaseUnit = unit.toBaseUnit(value);
     }
 
-    protected abstract Temperature.Unit getInternalUnit();
+    protected abstract Unit getInternalUnit();
     protected abstract int getDefaultDecimalPlaces();
 
     public double getValue(Unit unit) {
