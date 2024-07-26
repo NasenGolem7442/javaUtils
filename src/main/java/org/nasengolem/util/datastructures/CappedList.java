@@ -134,7 +134,7 @@ public class CappedList<E> extends AbstractShrinkableList<E>
     /**
      * Returns {@code true} if this list is full. This means that no further elements can be added.
      *
-     * @return {@code true} if this collection if full This implementation returns {@code size() == capacity()}.
+     * @return {@code true} if this collection if full. This implementation returns {@code size() == capacity()}.
      */
     public boolean isFull() {
         return size() == capacity();
@@ -164,8 +164,8 @@ public class CappedList<E> extends AbstractShrinkableList<E>
     }
 
     /**
-     * Inserts all elements of the specified collection into this list, starting at the specified position.  Shifts the element currently at
-     * that position (if any) and any subsequent elements to the right (increases their indices).  The new elements will appear in the list
+     * Inserts all elements of the specified collection into this list, starting at the specified position. Shifts the element currently at
+     * that position (if any) and any subsequent elements to the right (increases their indices). The new elements will appear in the list
      * in the order that they are returned by the specified collection's iterator.
      *
      * @param index index at which to insert the first element from the specified collection
