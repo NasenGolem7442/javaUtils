@@ -14,7 +14,7 @@ Please take a look at [my JavaDoc](https://nasengolem7442.github.io/javaUtils/) 
 ## Installation
 You can either download the compiled source code or you can compile it yourself.
 
-For download, go to [releases](https://github.com/NasenGolem7442/javaUtils/releases) and download the latest `util-v#.#.#.zip`. Unpack it and move the `#.#.#` folder to `C:\Users\YourUser\.m2\repository\org\nasengolem\util\`
+For download, go to [releases](https://github.com/NasenGolem7442/javaUtils/releases) and download the latest `util-v#.#.#.zip`. Unpack it and move the `#.#.#` folder to `~/.m2/repository/org/nasengolem/util/`
 
 If you want to compile it yourself, follow these steps on Windows*:
 1. **Open PowerShell** 
