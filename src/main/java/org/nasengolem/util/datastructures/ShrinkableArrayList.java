@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.RandomAccess;
 
 /**
- * Random-Access {@code List} implementation, that has a custom capacity and allows
+ * Random-Access {@link List} implementation, that has a custom capacity and allows
  * custom resizing. Implements all optional list operations and permits all elements, including
  * {@code null}. The main feature of this list is, that it can be resized to a smaller
  * size. After resizing, the Array behaves as if it was of the new size and all
