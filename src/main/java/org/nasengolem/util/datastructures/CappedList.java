@@ -66,7 +66,7 @@ public class CappedList<E> extends AbstractShrinkableList<E>
      * @throws NullPointerException if the cappedList is null
      */
     public CappedList(CappedList<? extends E> cappedList) {
-        this.elements = Arrays.copyOf(cappedList.elements, capacity());
+        this.elements = Arrays.copyOf(cappedList.elements, cappedList.capacity());
         this.size = cappedList.size;
     }
 
