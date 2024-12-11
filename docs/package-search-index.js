@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.nasengolem.util.datastructures"},{"l":"org.nasengolem.util.units"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.nasengolem.util.datastructures"},{"l":"org.nasengolem.util.units"},{"l":"org.nasengolem.util.zip"}];updateSearchResults();
