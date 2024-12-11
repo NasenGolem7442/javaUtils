@@ -8,6 +8,7 @@ This repository has nothing to do with `java.util`
 ## Features
 - CappedList: ArrayList like data structure with capped size that allows resizing the List in constant time. Useful if you often want to discard the last elements of your list.
 - Class System for units (prototype): Class system to handle physical quantities (e.g. temperatures)
+- Zip: Classes to iterate over several Iterables in a single enhanced-for loop 
 
 Please take a look at [my JavaDoc](https://nasengolem7442.github.io/javaUtils/) for detailed Information.
 
